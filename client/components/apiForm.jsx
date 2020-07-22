@@ -11,6 +11,7 @@ class ApiForm extends Component {
         objectIDs: [],
       },
       single: '',
+      images: [],
     };
 
     this.query = this.query.bind(this);
@@ -25,9 +26,6 @@ class ApiForm extends Component {
       .then((res) => res.json())
       .then((artworks) => {
         this.getSingle(artworks.objectIDs[0]);
-
-        //Put back in Later
-        //console.log('inside query', artworks);
         return this.setState({
           artworks,
         });
@@ -44,6 +42,21 @@ class ApiForm extends Component {
         console.log('inside getSingle', single);
         return this.setState({
           single,
+        });
+      });
+  }
+
+  getTen(objId) {
+    fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objId}`
+    )
+      .then((res) => res.json())
+      .then((image) => {
+        console.log('inside getTen', image);
+        const newState = this.state.images;
+        newState.push(image.primaryImageSmall);
+        return this.setState({
+          images: newState,
         });
       });
   }
@@ -86,12 +99,13 @@ class ApiForm extends Component {
         </button>
 
         <div>
-          <ArtRender value={this.state.single} />
+          <ArtRender
+            value={this.state.single}
+            img={this.state.single.primaryImageSmall}
+            save={this.save}
+          />
         </div>
-        <div>
-          <img src={this.state.single.primaryImageSmall}></img>
-        </div>
-        <button onClick={() => this.save()}>Save</button>
+        <div></div>
       </div>
     );
   }

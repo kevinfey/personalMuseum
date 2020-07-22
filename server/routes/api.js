@@ -2,25 +2,26 @@
 const express = require('express');
 
 const artController = require('../controllers/artController');
+const userController = require('../controllers/userControllers');
 
 const router = express.Router();
 
-router.get('/', artController.getUser, (req, res) => {
+router.get('/', userController.getUser, (req, res) => {
   // console.log('res.locals', res.locals);
   res.status(200).json(res.locals);
 });
 
 router.post(
   '/',
-  artController.hashPassword,
-  artController.createUser,
+  userController.hashPassword,
+  userController.createUser,
   (req, res) => {
     // console.log('res.locals', res.locals);
     res.status(200).json('USER ADD SUCCESS');
   }
 );
 
-router.post('/auth', artController.authUser, (req, res) => {
+router.post('/auth', userController.authUser, (req, res) => {
   // console.log('res.locals', res.locals);
   res.status(200).json(res.locals.match);
 });
@@ -34,9 +35,5 @@ router.get('/art', artController.getArt, (req, res) => {
   // console.log('res.locals', res.locals);
   res.status(200).json(res.locals);
 });
-
-// router.get('/keyword', artController.getKeyword, (req, res) =>
-//   res.status(200).json(res.locals.keyword)
-// );
 
 module.exports = router;

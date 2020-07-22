@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import UserDisplay from './components/userDisplay';
 import Register from './components/register';
@@ -19,15 +18,6 @@ class App extends Component {
           </Switch>
         </Router>
       </div>
-      // <div id="app">
-      //   <Header />
-      //   <Login />
-      //   <Register />
-      //   <h1>User Display</h1>
-
-      //   <h2>Art will go Here</h2>
-      //   <UserDisplay />
-      // </div>
     );
   }
 }
