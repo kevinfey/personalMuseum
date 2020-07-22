@@ -6,7 +6,7 @@ const artController = {};
 
 artController.getUser = (req, res, next) => {
   const sqlRequest = `
-   SELECT * from USERS WHERE username = 'test'`;
+   SELECT * from USERS WHERE username = 'kevin'`;
   //const values = 'test';
   // set var to db.query()
   db.query(sqlRequest)

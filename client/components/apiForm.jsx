@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import ArtRender from './artRender.jsx';
 import './App.css';
 
@@ -73,6 +72,7 @@ class ApiForm extends Component {
     return (
       <div>
         <label> Search</label>
+        <div></div>
         <input id="inputField" type="text" name="search"></input>
         <button
           onClick={() => {

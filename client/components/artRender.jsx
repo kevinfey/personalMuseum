@@ -3,7 +3,15 @@ import React from 'react';
 
 const ArtRender = (props) => {
   const { value } = props;
-  return <div className="App">{value.title} </div>;
+  return (
+    <div>
+      {value.title}
+      <br />
+      {value.medium}
+      <br />
+      {value.dimensions}
+    </div>
+  );
 };
 
 export default ArtRender;

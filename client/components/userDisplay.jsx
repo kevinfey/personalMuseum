@@ -62,11 +62,9 @@ class UserDisplay extends Component {
 
     return (
       <div>
-        <h2>user</h2>
-
-        <div>
+        <h2>
           <User id={1} username={user[0].username} />
-        </div>
+        </h2>
         <div>
           <ApiForm />
         </div>
