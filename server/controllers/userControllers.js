@@ -6,7 +6,7 @@ const userController = {};
 
 userController.getUser = (req, res, next) => {
   const sqlRequest = `
-   SELECT * from USERS WHERE username = 'kevin'`;
+   SELECT * from USERS WHERE username = '9'`;
   //const values = 'test';
   // set var to db.query()
   db.query(sqlRequest)
@@ -14,7 +14,6 @@ userController.getUser = (req, res, next) => {
       // c onsole.log(data)
       const { rows } = data;
       res.locals = rows;
-      console.log(rows);
 
       next();
     })
@@ -22,9 +21,7 @@ userController.getUser = (req, res, next) => {
 };
 
 userController.hashPassword = (req, res, next) => {
-  console.log(req.body);
   req.body.password = bcrypt.hashSync(req.body.password, SALT_WORK_FACTOR);
-  console.log(req.body);
   next();
 };
 
@@ -56,9 +53,11 @@ userController.authUser = (req, res, next) => {
 
   db.query(sqlRequest, values)
     .then((data) => {
-      console.log('auth', data);
+      // console.log('auth', data);
       const { rows } = data;
-      console.log('rows', rows[0].hash);
+
+      res.locals.id = rows[0].user_id;
+
       bcrypt.compare(password, rows[0].hash).then((result) => {
         res.locals.match = result;
         return next();

@@ -3,14 +3,13 @@ const db = require('../models/artModels');
 const artController = {};
 
 artController.addArt = (req, res, next) => {
-  console.log('IN addArt Middleware', req.body.img);
-  const { img } = req.body;
-  console.log('img', img);
+  const { img, id } = req.body;
+  console.log('img', img, 'id', id);
   const sqlRequest = `
-   INSERT INTO art (img)
-   VALUES ($1)`;
+   INSERT INTO art (img, user_id)
+   VALUES ($1, $2)`;
 
-  const values = [img];
+  const values = [img, id];
   db.query(sqlRequest, values)
     .then((data) => {
       // c onsole.log(data)
@@ -21,17 +20,22 @@ artController.addArt = (req, res, next) => {
 };
 
 artController.getArt = (req, res, next) => {
-  console.log('get art middleware');
+  console.log('get art from art/user', req.body);
 
   const sqlRequest = `
-   SELECT * FROM art`;
-  //const values = 'test';
-  // set var to db.query()
-  db.query(sqlRequest)
+  SELECT * FROM ART WHERE user_id = $1`;
+
+  let values;
+  if (req.body.id === '') {
+    values = [1];
+  } else {
+    values = [req.body.id];
+  }
+  db.query(sqlRequest, values)
     .then((data) => {
       // c onsole.log(data)
       const { rows } = data;
-      res.locals = rows;
+      res.locals.body = rows;
       console.log('Rows from .getArt', rows);
 
       next();

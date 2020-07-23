@@ -6,14 +6,14 @@ function Header() {
     <nav>
       <ul className="nav-links">
         <li>
+          <Link to="/main">Main</Link>
+        </li>
+        <li>
           <Link to="/">Register</Link>
         </li>
 
         <li>
           <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/main">Main</Link>
         </li>
       </ul>
     </nav>

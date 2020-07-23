@@ -17,24 +17,35 @@ class UserDisplay extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/')
-      .then((res) => res.json())
-      .then((user) => {
-        console.log('inside react', user);
-        if (!Array.isArray(user)) user = [];
-        return this.setState({
-          user: user,
-          fetchedData: true,
-        });
-      })
-      .catch((err) => console.log('componentDidMount ERROR: ', err));
+    // fetch('/api/')
+    //   .then((res) => res.json())
+    //   .then((user) => {
+    //     if (!Array.isArray(user)) user = [];
+    //     return this.setState({
+    //       user: user,
+    //       fetchedData: true,
+    //     });
+    //   })
+    //   .catch((err) => console.log('componentDidMount ERROR: ', err));
 
-    fetch('/api/art')
-      .then((res) => res.json())
+    //TODO
+    //SEND in USERID
+    const payload = {
+      id: this.props.id,
+    };
+    fetch(`/api/artwork/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((response) => response.json())
       .then((artworks) => {
         console.log('userDisplay Fetch Request', artworks);
         if (!Array.isArray(artworks)) artworks = [];
         return this.setState({
+          fetchedData: true,
           artworks,
         });
       })
@@ -49,24 +60,26 @@ class UserDisplay extends Component {
         </div>
       );
 
-    const { user } = this.state;
+    // const { user } = this.state;
 
-    if (!user) return <div>Issue Loading User</div>;
+    // if (!user) return <div>Issue Loading User</div>;
 
-    if (!user.length) return <div>No User Found</div>;
+    // if (!user.length) return <div>No User Found</div>;
 
     const artArray = [];
     this.state.artworks.forEach((el, i) => {
       artArray.push(<Artwork id={i} key={i} img={el.img} />);
     });
+    console.log('artworks state check', this.state.artworks);
 
     return (
       <div>
-        <h2>
-          <User id={1} username={user[0].username} />
-        </h2>
+        <h3>
+          Hello {this.props.username}
+          {/* <User id={1} username={user[0].username} /> */}
+        </h3>
         <div>
-          <ApiForm />
+          <ApiForm id={this.props.id} />
         </div>
         <div id="artArray">{artArray}</div>
       </div>

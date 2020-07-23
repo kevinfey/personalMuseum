@@ -12,11 +12,13 @@ class ApiForm extends Component {
       },
       single: '',
       images: [],
+      titles: [],
     };
 
     this.query = this.query.bind(this);
     this.getSingle = this.getSingle.bind(this);
     this.save = this.save.bind(this);
+    this.getTen = this.getTen.bind(this);
   }
 
   query(search) {
@@ -25,7 +27,13 @@ class ApiForm extends Component {
     )
       .then((res) => res.json())
       .then((artworks) => {
-        this.getSingle(artworks.objectIDs[0]);
+        const length = artworks.objectIDs.length;
+        const loopLength = Math.min(10, length);
+        for (let i = 0; i < loopLength; i += 1) {
+          this.getTen(artworks.objectIDs[i]);
+        }
+        console.log('images', this.state.images);
+
         return this.setState({
           artworks,
         });
@@ -52,18 +60,23 @@ class ApiForm extends Component {
     )
       .then((res) => res.json())
       .then((image) => {
-        console.log('inside getTen', image);
+        console.log('inside getTen', image.title);
         const newState = this.state.images;
+        const newStateTitles = this.state.titles;
         newState.push(image.primaryImageSmall);
+        newStateTitles.push(image.title);
         return this.setState({
           images: newState,
+          titles: newStateTitles,
         });
       });
   }
 
-  save() {
+  save(imgURL) {
+    console.log('id', this.props);
     const payload = {
-      img: this.state.single.primaryImageSmall,
+      img: imgURL,
+      id: this.props.id,
     };
     fetch('/api/art', {
       method: 'POST',
@@ -82,9 +95,23 @@ class ApiForm extends Component {
   }
 
   render() {
+    const renderArr = [];
+
+    this.state.images.forEach((e, i) => {
+      renderArr.push(
+        <ArtRender
+          key={i}
+          title={this.state.titles[i]}
+          img={e}
+          save={this.save}
+        />
+      );
+    });
+
     return (
       <div>
-        <label> Search</label>
+        <label>Search for an Artist, Title, or Subject</label>
+        <br />
         <div></div>
         <input id="inputField" type="text" name="search"></input>
         <button
@@ -98,13 +125,7 @@ class ApiForm extends Component {
           Query
         </button>
 
-        <div>
-          <ArtRender
-            value={this.state.single}
-            img={this.state.single.primaryImageSmall}
-            save={this.save}
-          />
-        </div>
+        <div>{renderArr}</div>
         <div></div>
       </div>
     );

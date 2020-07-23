@@ -2,18 +2,16 @@ import React from 'react';
 //import './App.css';
 
 const ArtRender = (props) => {
-  const { value, img, save } = props;
+  const { title, img, save } = props;
   return (
     <div>
-      {value.title}
       <br />
-      {value.medium}
-      <br />
-      {value.dimensions}
+      {title}
       <br />
       <img src={img}></img>
       <br />
-      <button onClick={() => save()}>Save</button>
+      <button onClick={() => save(img)}>Save</button>
+      <br />
     </div>
   );
 };

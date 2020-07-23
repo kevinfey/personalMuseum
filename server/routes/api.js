@@ -11,6 +11,11 @@ router.get('/', userController.getUser, (req, res) => {
   res.status(200).json(res.locals);
 });
 
+// router.get('/', (req, res) => {
+//   // console.log('res.locals', res.locals);
+//   res.status(200).json('OLD ROUTE');
+// });
+
 router.post(
   '/',
   userController.hashPassword,
@@ -23,7 +28,12 @@ router.post(
 
 router.post('/auth', userController.authUser, (req, res) => {
   // console.log('res.locals', res.locals);
-  res.status(200).json(res.locals.match);
+  res.status(200).json(res.locals);
+});
+
+router.post('/artwork', artController.getArt, (req, res) => {
+  // console.log('res.locals', res.locals);
+  res.status(200).json(res.locals.body);
 });
 
 router.post('/art', artController.addArt, (req, res) => {
@@ -31,9 +41,9 @@ router.post('/art', artController.addArt, (req, res) => {
   res.status(200).json('ART POST SUCCESS');
 });
 
-router.get('/art', artController.getArt, (req, res) => {
-  // console.log('res.locals', res.locals);
-  res.status(200).json(res.locals);
-});
+// router.get('/art', artController.getArt, (req, res) => {
+//   // console.log('res.locals', res.locals);
+//   res.status(200).json(res.locals);
+// });
 
 module.exports = router;

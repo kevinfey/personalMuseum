@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import './App.css';
 
 function Login(props) {
@@ -6,6 +7,7 @@ function Login(props) {
     username: '',
     password: '',
     loggedIn: false,
+    userId: '',
   });
 
   const update = (e) => {
@@ -40,8 +42,16 @@ function Login(props) {
       .then((response) => response.json())
       .then((data) => {
         setState(() => ({
-          loggedIn: data,
+          loggedIn: data.match,
+          userId: data.id,
         }));
+        //use callback function to update global state
+        console.log('props update?', props.update);
+        props.update({
+          loggedIn: data.match,
+          userId: data.id,
+          username: state.username,
+        });
         console.log('Success:', data);
       })
       .catch((error) => {
@@ -50,13 +60,14 @@ function Login(props) {
   };
 
   if (state.loggedIn) {
-    return <div>LOGGED IN</div>;
+    return <div>LOGGED IN : {state.userId}</div>;
   }
 
   return (
     <div className="App">
       <div>
         <h1>Login</h1>
+
         <form>
           <div>
             <label htmlFor="username">Username</label>
