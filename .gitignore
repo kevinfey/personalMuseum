@@ -1,2 +1,12 @@
-node_modules
+# General
 .env
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# output from webpack
+dist/
+
