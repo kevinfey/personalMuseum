@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 
-const PG_URI =
+const PG_URI = env.PG_URI
   
 
 // create a new pool here using the connection string above
