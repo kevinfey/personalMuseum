@@ -47,6 +47,7 @@ function Login(props) {
         }));
         //use callback function to update global state
         console.log('props update?', props.update);
+        // reset state
         props.update({
           loggedIn: data.match,
           userId: data.id,

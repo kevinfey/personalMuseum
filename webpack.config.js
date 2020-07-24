@@ -1,6 +1,7 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   entry: ['./client/index.js'],
@@ -32,10 +33,6 @@ module.exports = {
         target: 'http://localhost:3000/',
         secure: false,
       },
-      '/assets/**': {
-        target: 'http://localhost:3000/',
-        secure: false,
-      },
     },
   },
 
@@ -57,6 +54,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './client/index.html',
     }),

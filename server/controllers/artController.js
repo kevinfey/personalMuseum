@@ -43,4 +43,23 @@ artController.getArt = (req, res, next) => {
     .catch((err) => next(err));
 };
 
+artController.deleteArt = (req, res, next) => {
+  console.log('inside delte', req.params.name);
+
+  const sqlRequest = `
+  DELETE FROM ART WHERE art_id = $1`;
+
+  const values = [req.params.id];
+  db.query(sqlRequest, values)
+    .then((data) => {
+      // c onsole.log(data)
+      const { rows } = data;
+      res.locals.body = rows;
+      console.log('Delete Data', rows);
+
+      next();
+    })
+    .catch((err) => next(err));
+};
+
 module.exports = artController;

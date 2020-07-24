@@ -5,16 +5,18 @@ function Header() {
   return (
     <nav>
       <ul className="nav-links">
+        <span></span>
         <li>
-          <Link to="/main">Main</Link>
+          <Link to="/login">login</Link>
         </li>
-        <li>
-          <Link to="/">Register</Link>
+        <li className="title">
+          <Link to="/main">gallery</Link>
         </li>
 
         <li>
-          <Link to="/login">Login</Link>
+          <Link to="/">register</Link>
         </li>
+        <span></span>
       </ul>
     </nav>
   );

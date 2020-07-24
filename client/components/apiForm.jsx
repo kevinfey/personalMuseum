@@ -28,7 +28,7 @@ class ApiForm extends Component {
       .then((res) => res.json())
       .then((artworks) => {
         const length = artworks.objectIDs.length;
-        const loopLength = Math.min(10, length);
+        const loopLength = Math.min(14, length);
         for (let i = 0; i < loopLength; i += 1) {
           this.getTen(artworks.objectIDs[i]);
         }
@@ -95,7 +95,7 @@ class ApiForm extends Component {
   }
 
   render() {
-    const renderArr = [];
+    let renderArr = [];
 
     this.state.images.forEach((e, i) => {
       renderArr.push(
@@ -107,6 +107,8 @@ class ApiForm extends Component {
         />
       );
     });
+
+    renderArr = renderArr.reverse();
 
     return (
       <div>
@@ -124,8 +126,19 @@ class ApiForm extends Component {
         >
           Query
         </button>
+        <button
+          onClick={() => {
+            this.props.refresh();
+            this.setState(() => ({
+              images: [],
+              titles: [],
+            }));
+          }}
+        >
+          Refresh
+        </button>
 
-        <div>{renderArr}</div>
+        <div className="searchCardContainer">{renderArr}</div>
         <div></div>
       </div>
     );

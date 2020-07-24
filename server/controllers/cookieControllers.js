@@ -4,7 +4,7 @@ const cookieController = {};
  * setCookie - set a cookie with a random number
  */
 cookieController.setCookie = (req, res, next) => {
-  res.cookie('Cookie', 'Cookie From Kevin');
+  res.cookie('Personal-Museum', 'Test-Cookie-Fresh-From-The-Oven');
   return next();
 };
 

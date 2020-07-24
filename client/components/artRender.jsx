@@ -4,13 +4,14 @@ import React from 'react';
 const ArtRender = (props) => {
   const { title, img, save } = props;
   return (
-    <div>
+    <div className="searchCard">
+      <div className="searchCardHeader">{title}</div>
+
+      <img src={img} width={'200px'}></img>
       <br />
-      {title}
-      <br />
-      <img src={img}></img>
-      <br />
-      <button onClick={() => save(img)}>Save</button>
+      <button className="save" onClick={() => save(img)}>
+        save
+      </button>
       <br />
     </div>
   );

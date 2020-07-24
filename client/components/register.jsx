@@ -6,6 +6,7 @@ function Register(props) {
     username: '',
     password: '',
     confirmPassword: '',
+    id: '',
   });
 
   const update = (e) => {
@@ -23,6 +24,13 @@ function Register(props) {
     } else {
       return 'Passwords Do Not Match';
     }
+
+    //update global state
+    // props.update({
+    //   loggedIn: data.match,
+    //   userId: props.id,
+    //   username: state.username,
+    // });
     setState(() => ({
       username: '',
       password: '',

@@ -37,7 +37,8 @@ userController.createUser = (req, res, next) => {
   db.query(sqlRequest, values)
     .then((data) => {
       // c onsole.log(data)
-      console.log(data);
+      res.locals = data;
+      //console.log(data);
       next();
     })
     .catch((err) => next(err));
